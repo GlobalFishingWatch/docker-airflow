@@ -1,0 +1,5 @@
+{
+  "extra__google_cloud_platform__project": "PROJECT_ID",
+  "extra__google_cloud_platform__scope": "https://www.googleapis.com/auth/cloud-platform",
+  "extra__google_cloud_platform__key_path": "/usr/local/airflow/initialize/SERVICE_ACCOUNT.json"
+}

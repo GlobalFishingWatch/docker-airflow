@@ -16,8 +16,9 @@ services:
         environment:
             - LOAD_EX=n
             - EXECUTOR=Local
-#        volumes:
-#             - ~/github/docker-airflow/dags:/usr/local/airflow/dags
+        volumes:
+             - /Users/paul/github/pipe-model/pipe-orbcomm-airflow:/usr/local/airflow/dags/pipe-orbcomm-airflow
+             - ./initialize:/usr/local/airflow/initialize
         ports:
             - "8080:8080"
         command: webserver

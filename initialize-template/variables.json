@@ -1,0 +1,7 @@
+{
+    "Example": "Example variable",
+    "Example_Structured": {
+        "Structured": 1,
+        "Variable": 2
+    }
+}

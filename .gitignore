@@ -27,3 +27,6 @@ sftp-config.json
 
 # Local configuration files
 initialize/
+
+# Python
+*.pyc

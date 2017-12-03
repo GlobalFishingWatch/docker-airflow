@@ -1,7 +1,7 @@
 {
-    "Example": "Example variable",
-    "Example_Structured": {
-        "Structured": 1,
-        "Variable": 2
-    }
+    "PROJECT_ID": "PROJECT_ID",
+    "PIPELINE_DATASET": "pipe_test_a_ttl30",
+    "PIPELINE_BUCKET": "pipe-test-a-ttl30",
+    "TEMP_BUCKET": "pipe-test-a-temp-ttl3",
+    "DOCKER_RUN": "docker run -v gcp:/root/.config"
 }

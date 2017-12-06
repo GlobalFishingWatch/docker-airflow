@@ -14,7 +14,6 @@ echo "Executing install.sh from docker_file"
 CONTAINER=gcr.io/world-fishing-827/$1
 docker run -v $DEST_PATH:/dags $CONTAINER /bin/bash install.sh
 
-
-# POST_INSTALLER=$DEST_PATH/post_install.sh
-# echo "Executing $POST_INSTALLER"
-# /bin/bash $POST_INSTALLER
+POST_INSTALLER=$DEST_PATH/post_install.sh
+echo "Executing $POST_INSTALLER"
+/bin/bash $POST_INSTALLER $1

@@ -22,7 +22,15 @@ services:
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
             - ./dags:/usr/local/airflow/dags
+            - gcp:/root/.config/
         ports:
             - "8080:8080"
         command: webserver
+
+# Use an external named volume so that we can share gcp auth across containers
+# Before first use, this volume must be manually created with
+#   docker volume create --name=gcp
+volumes:
+  gcp:
+    external: true    
 

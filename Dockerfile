@@ -108,6 +108,7 @@ RUN apt-get remove --purge -yqq $buildDeps \
 
 COPY script/entrypoint.sh /entrypoint.sh
 COPY config/airflow.cfg ${AIRFLOW_HOME}/airflow.cfg
+COPY utils/dataflow-wrapper.py ${AIRFLOW_HOME}/dataflow-wrapper.py
 
 #RUN chown -R airflow: ${AIRFLOW_HOME}
 

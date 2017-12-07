@@ -3,5 +3,6 @@
     "PIPELINE_DATASET": "pipe_test_a_ttl30",
     "PIPELINE_BUCKET": "pipe-test-a-ttl30",
     "TEMP_BUCKET": "pipe-test-a-temp-ttl3",
-    "DOCKER_RUN": "docker run -v gcp:/root/.config"
+    "DOCKER_RUN": "docker run -v gcp:/root/.config",
+    "DOCKER_DATAFLOW_STUB": "/usr/local/airflow/dataflow-wrapper.py"
 }

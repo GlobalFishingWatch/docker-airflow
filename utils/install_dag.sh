@@ -17,9 +17,6 @@ echo "Creating $DEST_PATH as destination"
 # TODO: What to do if path exists?
 mkdir $DEST_PATH
 
-echo "Authorizing Docker"
-gcloud docker -a
-
 echo "Executing install.sh from docker_file"
 CONTAINER=gcr.io/world-fishing-827/$1
 docker run -v $HOST_DEST_PATH:/dags $CONTAINER /bin/bash install.sh

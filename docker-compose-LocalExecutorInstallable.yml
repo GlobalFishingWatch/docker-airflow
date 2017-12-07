@@ -23,6 +23,7 @@ services:
             - /var/run/docker.sock:/var/run/docker.sock
             - ./dags:/usr/local/airflow/dags
             - gcp:/root/.config/
+            - ./initialize:/usr/local/airflow/initialize
         ports:
             - "8080:8080"
         command: webserver

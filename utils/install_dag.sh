@@ -49,7 +49,7 @@ echo ""
 echo "Executing post install"
 echo "  Script: $POST_INSTALL"
 
-echo /bin/bash $POST_INSTALL "$@"
+/bin/bash $POST_INSTALL "$@"
 
 echo ""
 echo "Done"

@@ -39,6 +39,8 @@ def run(args):
     command = options.command.split()
     logger = get_logger(options)
 
+    logger.info("Command:\n\n" + "\n  ".join(command + args) + "\n")
+
     p = subprocess.Popen(command + args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     stdout, stderr = p.communicate()
 

@@ -1,7 +1,11 @@
 {
-    "Example": "Example variable",
-    "Example_Structured": {
-        "Structured": 1,
-        "Variable": 2
-    }
+
+    "GCP_VOLUME": "gcp",
+    "PROJECT_ID": "PROJECT_ID",
+    "PIPELINE_DATASET": "BIGQUERY_DATASET",
+    "PIPELINE_BUCKET": "GCS_BUCKET",
+    "TEMP_BUCKET": "GCS_BUCKET",
+    "DOCKER_RUN": "docker run -v gcp:/root/.config",
+    "DATAFLOW_WRAPPER_STUB": "/usr/local/airflow/utils/log_wrapper.py",
+    "DATAFLOW_WRAPPER_LOG_PATH": "/usr/local/airflow/log_wrapper",
 }

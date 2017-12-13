@@ -1,0 +1,37 @@
+version: '2'
+services:
+    postgres:
+        image: postgres:9.6
+        environment:
+            - POSTGRES_USER=airflow
+            - POSTGRES_PASSWORD=airflow
+            - POSTGRES_DB=airflow
+
+    webserver:
+        image: gfw/docker-airflow
+        build: .
+        restart: always
+        depends_on:
+            - postgres
+        environment:
+            - LOAD_EX=n
+            - EXECUTOR=Local
+            - AIRFLOW_HOME=/usr/local/airflow
+            # Note that this means that this must be run from airflow directory.
+            - HOST_DAGS=${PWD}/dags 
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+            - ./dags:/usr/local/airflow/dags
+            - gcp:/root/.config/
+            - ./initialize:/usr/local/airflow/initialize
+        ports:
+            - "8080:8080"
+        command: webserver
+
+# Use an external named volume so that we can share gcp auth across containers
+# Before first use, this volume must be manually created with
+#   docker volume create --name=gcp
+volumes:
+  gcp:
+    external: true    
+

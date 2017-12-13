@@ -82,14 +82,36 @@ RUN curl -L -o docker.deb \
        "https://download.docker.com/linux/debian/dists/jessie/pool/stable/amd64/docker-ce_17.03.2~ce-0~debian-jessie_amd64.deb" \
   && dpkg -i docker.deb
 
+# Download and install google cloud. See the dockerfile at
+# https://hub.docker.com/r/google/cloud-sdk/~/dockerfile/
+RUN  \
+  export CLOUD_SDK_APT_DEPS="curl gcc python-dev python-setuptools apt-transport-https lsb-release openssh-client git" && \
+  export CLOUD_SDK_PIP_DEPS="crcmod" && \
+  apt-get -qqy update && \
+  apt-get install -qqy $CLOUD_SDK_APT_DEPS && \
+  pip install -U $CLOUD_SDK_PIP_DEPS && \
+  export CLOUD_SDK_VERSION="170.0.1" && \
+  export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)" && \
+  echo "deb https://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" > /etc/apt/sources.list.d/google-cloud-sdk.list && \
+  curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - && \
+  apt-get update && \
+  apt-get install -y google-cloud-sdk=${CLOUD_SDK_VERSION}-0 && \
+  gcloud config set core/disable_usage_reporting true && \
+  gcloud config set component_manager/disable_update_check true && \
+  gcloud config set metrics/environment github_docker_image
 
 COPY script/entrypoint.sh /entrypoint.sh
 COPY config/airflow.cfg ${AIRFLOW_HOME}/airflow.cfg
+
+RUN mkdir ${AIRFLOW_HOME}/utils 
+COPY utils/* ${AIRFLOW_HOME}/utils/
+RUN mkdir ${AIRFLOW_HOME}/dags
+
 
 RUN chown -R airflow: ${AIRFLOW_HOME}
 
 EXPOSE 8080 5555 8793
 
-USER airflow
+USER root
 WORKDIR ${AIRFLOW_HOME}
 ENTRYPOINT ["/entrypoint.sh"]

@@ -31,6 +31,11 @@ AIRFLOW_DAG_PATH=${AIRFLOW_HOME}/dags/${IMAGE}
 CONTAINER_DAG_PATH=/dags
 POST_INSTALL=${AIRFLOW_DAG_PATH}/post_install.sh
 
+echo "Updating docker image"
+echo "  Container: $CONTAINER"
+
+gcloud docker -- pull $CONTAINER
+
 echo "Creating dag install folder"
 echo "  Host path: $HOST_DAG_PATH"
 echo "  Local path: $AIRFLOW_DAG_PATH"

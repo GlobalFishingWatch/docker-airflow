@@ -10,6 +10,8 @@
 #    gfw/anchorages_pipeline:latest
 #
 
+set -e
+
 display_usage() {
 	echo "Usage \n$0 DOCKERIMAGE [post-install-args]"
 	}

@@ -29,3 +29,5 @@ sftp-config.json
 initialize/
 dags/
 venv/*
+.env
+temp-dags

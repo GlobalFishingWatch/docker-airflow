@@ -18,7 +18,7 @@ services:
             - EXECUTOR=Local
             - AIRFLOW_HOME=/usr/local/airflow
             # Note that this means that this must be run from airflow directory.
-            - HOST_DAGS=${PWD}/dags
+            - HOST_DAGS=${PWD}/temp-dags
             - DOCKER_USE_LOCAL=1
 
             # TEST_PIPELINE is used bu initialize.sh to run the post_install.sh script
@@ -26,7 +26,7 @@ services:
             - TEST_PIPELINE=${TEST_PIPELINE}
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
-            - ${PWD}/dags:/usr/local/airflow/dags
+            - ${PWD}/temp-dags:/usr/local/airflow/dags
             - gcp:/root/.config/
             - ./initialize:/usr/local/airflow/initialize
 

@@ -10,6 +10,7 @@ import sys
 import os
 import posixpath as pp
 import logging
+import select
 
 
 def get_logger(options):
@@ -26,6 +27,51 @@ def get_logger(options):
     return logger
 
 
+def log_line(line, logger):
+    # TODO: Should just use another handler in the logger to sent to stdout
+    print line
+    logger.info(line)
+
+
+class _Subprocess():
+    def __init__(self, cmd, args, logger):
+        self.log = logger
+        self._proc = subprocess.Popen(cmd + args, shell=False, stdout=subprocess.PIPE,
+                                      stderr=subprocess.PIPE)
+
+    def _line(self, fd):
+        if fd == self._proc.stderr.fileno():
+            line = self._proc.stderr.readline()
+            return line
+        if fd == self._proc.stdout.fileno():
+            line = self._proc.stdout.readline()
+            return line
+
+    def _log_line(self, line):
+        log_line(line, self.log)
+
+    def wait_for_done(self):
+        reads = [self._proc.stderr.fileno(), self._proc.stdout.fileno()]
+        self._log_line("Output:\n")
+        while self._proc.poll() is None:
+            ret = select.select(reads, [], [], 5)
+            if ret is not None:
+                for fd in ret[0]:
+                    line = self._line(fd)
+                    self._log_line(line[:-1])
+            else:
+                self._log_line("Waiting for DataFlow process to complete.")
+
+        stdout, stderr = self._proc.communicate()
+        if stdout:
+            self._log_line(stdout)
+        if stderr:
+            self._log_line(stderr)
+
+        return self._proc.returncode
+
+
+
 def run(args):
 
     parser = argparse.ArgumentParser(add_help=False)
@@ -39,17 +85,18 @@ def run(args):
     command = options.command.split()
     logger = get_logger(options)
 
-    logger.info("Command:\n\n" + "\n  ".join(command + args) + "\n")
+    log_line("####################################", logger)
+    log_line("### Begin log wrapper invocation", logger)
+    log_line("###\n", logger)
+    log_line("Command:\n\n" + "\n  ".join(command + args) + "\n", logger)
 
-    p = subprocess.Popen(command + args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    stdout, stderr = p.communicate()
+    ret_code = _Subprocess(command, args, logger).wait_for_done()
 
-    logger.info("Command:\n\n" + "\n  ".join(command + args) + "\n")
-    if stderr:
-        logger.info("Captured stderr:\n\n" + stderr)
-    logger.info("Captured stdout:\n\n" + stdout)
+    log_line("### Log Wrapper exiting with return code %s" % ret_code, logger)
+    log_line("###", logger)
+    log_line("####################################", logger)
 
-    sys.exit(p.returncode)
+    sys.exit(ret_code)
 
 
 if __name__ == '__main__':

@@ -62,7 +62,7 @@ RUN set -ex \
     && pip install pyasn1 \
     && pip install google-api-python-client \
     && pip install pandas-gbq \
-    && pip install https://github.com/apache/incubator-airflow/archive/1.9.0rc1.tar.gz \
+    && pip install https://github.com/apache/incubator-airflow/archive/1.9.0.tar.gz \
     && pip install psycopg2 \
     && pip install celery[redis]==3.1.17 \
     && pip install https://codeload.github.com/GlobalFishingWatch/pipe-tools/tar.gz/v0.1.6 \

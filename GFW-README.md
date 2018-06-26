@@ -7,7 +7,7 @@ This is intended to serve as a development environment for authoring dags
 
 ## Modifications
 
-* Use airflow 1.9.0rc1
+* Use airflow 1.9.0 (June 2018)
 
 ## Use
 

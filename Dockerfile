@@ -53,19 +53,21 @@ RUN set -ex \
     && locale-gen \
     && update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 \
     && useradd -ms /bin/bash -d ${AIRFLOW_HOME} airflow \
-    && python -m pip install -U pip \
-    && pip install six==1.10.0 \
-    && pip install Cython \
-    && pip install pytz \
-    && pip install pyOpenSSL \
-    && pip install ndg-httpsclient \
-    && pip install pyasn1 \
-    && pip install google-api-python-client \
-    && pip install pandas-gbq \
-    && pip install https://github.com/apache/incubator-airflow/archive/1.9.0.tar.gz \
-    && pip install psycopg2 \
-    && pip install celery[redis]==3.1.17 \
-    && pip install https://codeload.github.com/GlobalFishingWatch/pipe-tools/tar.gz/v0.1.6 \
+    && python -m pip install --default-timeout=100 -U pip \
+    && pip install --default-timeout=100 six==1.10.0 \
+    && pip install --default-timeout=100 Cython \
+    && pip install --default-timeout=100 pytz \
+    && pip install --default-timeout=100 pyOpenSSL \
+    && pip install --default-timeout=100 ndg-httpsclient \
+    && pip install --default-timeout=100 pyasn1 \
+    && pip install --default-timeout=100 google-api-python-client \
+    && pip install --default-timeout=300 pandas-gbq \
+    && pip install --default-timeout=200 https://github.com/apache/incubator-airflow/archive/1.9.0.tar.gz \
+    && pip install --default-timeout=200 psycopg2 \
+    && pip install --default-timeout=200 celery[redis]==3.1.17 \
+    && pip install --default-timeout=200 https://codeload.github.com/GlobalFishingWatch/pipe-tools/tar.gz/v0.1.6 \
+    && pip install --default-timeout=100 request \
+    && pip install --default-timeout=100 jsonmerge \
     && apt-get remove --purge -yqq $buildDeps \
     && apt-get clean \
     && rm -rf \
@@ -90,7 +92,7 @@ RUN  \
   export CLOUD_SDK_PIP_DEPS="crcmod" && \
   apt-get -qqy update && \
   apt-get install -qqy $CLOUD_SDK_APT_DEPS && \
-  pip install -U $CLOUD_SDK_PIP_DEPS && \
+  pip install --default-timeout=100 -U $CLOUD_SDK_PIP_DEPS && \
   export CLOUD_SDK_VERSION="198.0.0" && \
   export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)" && \
   echo "deb https://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" > /etc/apt/sources.list.d/google-cloud-sdk.list && \

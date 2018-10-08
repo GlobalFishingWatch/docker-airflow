@@ -66,6 +66,8 @@ RUN set -ex \
     && pip install psycopg2 \
     && pip install celery[redis]==3.1.17 \
     && pip install https://codeload.github.com/GlobalFishingWatch/pipe-tools/tar.gz/v0.1.6 \
+    && pip install request \
+    && pip install jsonmerge \
     && apt-get remove --purge -yqq $buildDeps \
     && apt-get clean \
     && rm -rf \

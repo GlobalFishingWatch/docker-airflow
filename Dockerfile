@@ -12,7 +12,7 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV TERM linux
 
 # Airflow
-ARG AIRFLOW_VERSION=1.10.0
+ARG AIRFLOW_VERSION=1.10.1
 ARG AIRFLOW_HOME=/usr/local/airflow
 ENV SLUGIFY_USES_TEXT_UNIDECODE=yes
 
@@ -63,11 +63,12 @@ RUN set -ex \
     && pip install pyasn1 \
     && pip install google-api-python-client \
     && pip install pandas-gbq \
-    && pip install https://github.com/apache/incubator-airflow/archive/1.10.0.tar.gz \
+    && pip install -U setuptools \
+    && pip install https://github.com/apache/incubator-airflow/archive/1.10.1.tar.gz \
     && pip install snakebite \
     && pip install psycopg2 \
     && pip install celery[redis]==3.1.17 \
-    && pip install https://codeload.github.com/GlobalFishingWatch/pipe-tools/tar.gz/d884-2 \
+    && pip install https://codeload.github.com/GlobalFishingWatch/pipe-tools/tar.gz/d884-3 \
     && apt-get remove --purge -yqq $buildDeps \
     && apt-get clean \
     && rm -rf \

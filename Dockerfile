@@ -68,7 +68,7 @@ RUN set -ex \
     && pip install snakebite \
     && pip install psycopg2 \
     && pip install celery[redis]==3.1.17 \
-    && pip install https://codeload.github.com/GlobalFishingWatch/pipe-tools/tar.gz/d884-3 \
+    && pip install https://codeload.github.com/GlobalFishingWatch/pipe-tools/tar.gz/v1.0.0 \
     && apt-get remove --purge -yqq $buildDeps \
     && apt-get clean \
     && rm -rf \

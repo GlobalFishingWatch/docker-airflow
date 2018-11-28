@@ -16,6 +16,9 @@ ARG AIRFLOW_VERSION=1.10.1
 ARG AIRFLOW_HOME=/usr/local/airflow
 ENV SLUGIFY_USES_TEXT_UNIDECODE=yes
 
+# Pipe Tools
+ENV PIPE_TOOLS_VERSION=v1.0.0
+
 # Define en_US.
 ENV LANGUAGE en_US.UTF-8
 ENV LANG en_US.UTF-8
@@ -64,11 +67,11 @@ RUN set -ex \
     && pip install google-api-python-client \
     && pip install pandas-gbq \
     && pip install -U setuptools \
-    && pip install https://github.com/apache/incubator-airflow/archive/1.10.1.tar.gz \
+    && pip install https://github.com/apache/incubator-airflow/archive/${AIRFLOW_VERSION}.tar.gz \
     && pip install snakebite \
     && pip install psycopg2 \
     && pip install celery[redis]==3.1.17 \
-    && pip install https://codeload.github.com/GlobalFishingWatch/pipe-tools/tar.gz/v1.0.0 \
+    && pip install https://codeload.github.com/GlobalFishingWatch/pipe-tools/tar.gz/${PIPE_TOOLS_VERSION} \
     && apt-get remove --purge -yqq $buildDeps \
     && apt-get clean \
     && rm -rf \

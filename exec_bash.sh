@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker exec -it dockerairflow_webserver_1 bash
+docker exec -it docker-airflow_webserver_1 bash

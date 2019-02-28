@@ -17,7 +17,7 @@ ARG AIRFLOW_HOME=/usr/local/airflow
 ENV SLUGIFY_USES_TEXT_UNIDECODE=yes
 
 # Pipe Tools
-ENV PIPE_TOOLS_VERSION=v1.0.0
+ENV AIRFLOW_GFW_VERSION=v0.0.1-dev2
 
 # Define en_US.
 ENV LANGUAGE en_US.UTF-8
@@ -71,7 +71,7 @@ RUN set -ex \
     && pip install snakebite \
     && pip install psycopg2 \
     && pip install celery[redis]==3.1.17 \
-    && pip install https://codeload.github.com/GlobalFishingWatch/pipe-tools/tar.gz/${PIPE_TOOLS_VERSION} \
+    && pip install https://codeload.github.com/GlobalFishingWatch/airflow-gfw/tar.gz/${AIRFLOW_GFW_VERSION} \
     && apt-get remove --purge -yqq $buildDeps \
     && apt-get clean \
     && rm -rf \
@@ -97,7 +97,7 @@ RUN  \
   apt-get -qqy update && \
   apt-get install -qqy $CLOUD_SDK_APT_DEPS && \
   pip install -U $CLOUD_SDK_PIP_DEPS && \
-  export CLOUD_SDK_VERSION="198.0.0" && \
+  export CLOUD_SDK_VERSION="232.0.0" && \
   export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)" && \
   echo "deb https://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" > /etc/apt/sources.list.d/google-cloud-sdk.list && \
   curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - && \

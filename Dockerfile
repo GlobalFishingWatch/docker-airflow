@@ -12,12 +12,13 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV TERM linux
 
 # Airflow
-ARG AIRFLOW_VERSION=1.10.1
+ARG AIRFLOW_VERSION=1.10.2
 ARG AIRFLOW_HOME=/usr/local/airflow
 ENV SLUGIFY_USES_TEXT_UNIDECODE=yes
+ENV GOOGLE_APPLICATION_CREDENTIALS=/root/.config/service-account.json
 
 # Pipe Tools
-ENV AIRFLOW_GFW_VERSION=v0.0.1-dev2
+ENV AIRFLOW_GFW_VERSION=v0.0.2
 
 # Define en_US.
 ENV LANGUAGE en_US.UTF-8
@@ -26,6 +27,9 @@ ENV LC_ALL en_US.UTF-8
 ENV LC_CTYPE en_US.UTF-8
 ENV LC_MESSAGES en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
+
+#fix when fails for fetching
+RUN printf "deb http://archive.debian.org/debian/ jessie main\ndeb-src http://archive.debian.org/debian/ jessie main\ndeb http://security.debian.org jessie/updates main\ndeb-src http://security.debian.org jessie/updates main" > /etc/apt/sources.list
 
 RUN set -ex \
     && buildDeps=' \
@@ -97,7 +101,7 @@ RUN  \
   apt-get -qqy update && \
   apt-get install -qqy $CLOUD_SDK_APT_DEPS && \
   pip install -U $CLOUD_SDK_PIP_DEPS && \
-  export CLOUD_SDK_VERSION="232.0.0" && \
+  export CLOUD_SDK_VERSION="248.0.0" && \
   export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)" && \
   echo "deb https://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" > /etc/apt/sources.list.d/google-cloud-sdk.list && \
   curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - && \
@@ -105,7 +109,8 @@ RUN  \
   apt-get install -y google-cloud-sdk=${CLOUD_SDK_VERSION}-0 && \
   gcloud config set core/disable_usage_reporting true && \
   gcloud config set component_manager/disable_update_check true && \
-  gcloud config set metrics/environment github_docker_image
+  gcloud config set metrics/environment github_docker_image && \
+  gcloud config set project world-fishing-827
 
 COPY script/entrypoint.sh /entrypoint.sh
 COPY config/airflow.cfg ${AIRFLOW_HOME}/airflow.cfg

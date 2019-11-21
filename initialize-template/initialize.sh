@@ -11,6 +11,13 @@ airflow connections --add \
   --conn_type=google_cloud_platform \
   --conn_extra="$(cat ${MOUNT_PATH}/connection.json)"
 
+# Install SLACK connection
+airflow connections --add \
+  --conn_id=slack_on_failure \
+  --conn_type=http \
+  --conn_host=https://hooks.slack.com/services \
+  --conn_password=${SLACK_WEBHOOK_TOKEN}
+
 #Install Variables
 airflow variables --import ${MOUNT_PATH}/variables.json
 airflow variables --set PIPELINE_START_DATE $(date -d "-3 days" +"%Y-%m-%d")

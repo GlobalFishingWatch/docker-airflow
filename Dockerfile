@@ -12,13 +12,13 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV TERM linux
 
 # Airflow
-ARG AIRFLOW_VERSION=1.10.2
+ARG AIRFLOW_VERSION=1.10.5
 ARG AIRFLOW_HOME=/usr/local/airflow
 ENV SLUGIFY_USES_TEXT_UNIDECODE=yes
-ENV GOOGLE_APPLICATION_CREDENTIALS=/root/.config/service-account.json
+ENV GOOGLE_APPLICATION_CREDENTIALS=/root/.config/gcloud/application_default_credentials.json
 
 # Pipe Tools
-ENV AIRFLOW_GFW_VERSION=v0.0.2
+ENV AIRFLOW_GFW_VERSION=d1160-5
 
 # Define en_US.
 ENV LANGUAGE en_US.UTF-8
@@ -62,13 +62,15 @@ RUN set -ex \
     && update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 \
     && useradd -ms /bin/bash -d ${AIRFLOW_HOME} airflow \
     && python -m pip install -U pip \
-    && pip install six==1.10.0 \
+    && pip install six==1.11.0 \
+    && pip install marshmallow-sqlalchemy==0.17.2 \
     && pip install Cython \
     && pip install pytz \
     && pip install pyOpenSSL \
     && pip install ndg-httpsclient \
     && pip install pyasn1 \
     && pip install google-api-python-client \
+    && pip install requests==2.18.0 \
     && pip install pandas-gbq \
     && pip install -U setuptools \
     && pip install https://github.com/apache/incubator-airflow/archive/${AIRFLOW_VERSION}.tar.gz \
@@ -101,7 +103,7 @@ RUN  \
   apt-get -qqy update && \
   apt-get install -qqy $CLOUD_SDK_APT_DEPS && \
   pip install -U $CLOUD_SDK_PIP_DEPS && \
-  export CLOUD_SDK_VERSION="248.0.0" && \
+  export CLOUD_SDK_VERSION="255.0.0" && \
   export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)" && \
   echo "deb https://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" > /etc/apt/sources.list.d/google-cloud-sdk.list && \
   curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - && \

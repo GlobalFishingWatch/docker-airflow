@@ -16,9 +16,10 @@ ARG AIRFLOW_VERSION=1.10.5
 ARG AIRFLOW_HOME=/usr/local/airflow
 ENV SLUGIFY_USES_TEXT_UNIDECODE=yes
 ENV GOOGLE_APPLICATION_CREDENTIALS=/root/.config/gcloud/application_default_credentials.json
+ENV GOOGLE_CLOUD_PROJECT='world-fishing-827'
 
 # Pipe Tools
-ENV AIRFLOW_GFW_VERSION=d1160-5
+ENV AIRFLOW_GFW_VERSION=v0.0.6
 
 # Define en_US.
 ENV LANGUAGE en_US.UTF-8
@@ -62,7 +63,7 @@ RUN set -ex \
     && update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 \
     && useradd -ms /bin/bash -d ${AIRFLOW_HOME} airflow \
     && python -m pip install -U pip \
-    && pip install six==1.11.0 \
+    && pip install six==1.14.0 \
     && pip install marshmallow-sqlalchemy==0.17.2 \
     && pip install Cython \
     && pip install pytz \

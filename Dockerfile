@@ -19,7 +19,7 @@ ENV GOOGLE_APPLICATION_CREDENTIALS=/root/.config/gcloud/application_default_cred
 ENV GOOGLE_CLOUD_PROJECT='world-fishing-827'
 
 # Pipe Tools
-ENV AIRFLOW_GFW_VERSION=v0.0.6
+ENV AIRFLOW_GFW_VERSION=v0.0.7
 
 # Define en_US.
 ENV LANGUAGE en_US.UTF-8
@@ -74,6 +74,7 @@ RUN set -ex \
     && pip install requests==2.18.0 \
     && pip install pandas-gbq \
     && pip install -U setuptools \
+    && pip install smmap2==2.0.5 \
     && pip install https://github.com/apache/incubator-airflow/archive/${AIRFLOW_VERSION}.tar.gz \
     && pip install snakebite \
     && pip install psycopg2 \

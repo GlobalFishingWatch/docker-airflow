@@ -24,6 +24,7 @@ airflow variables --set PIPELINE_START_DATE $(date -d "-3 days" +"%Y-%m-%d")
 
 airflow pool -s dataflow 1 "Google Cloud Dataflow jobs"
 airflow pool -s bigquery 1 "Google Bigquery jobs"
+airflow pool -s k8operators_limit 3 "kubernetes"
 
 if [ ! -z ${TEST_PIPELINE} ]; then
   /usr/local/airflow/dags/${TEST_PIPELINE}/post_install.sh gfw/${TEST_PIPELINE}

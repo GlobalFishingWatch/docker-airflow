@@ -75,9 +75,11 @@ RUN set -ex \
     && pip install pandas-gbq \
     && pip install -U setuptools \
     && pip install smmap2==2.0.5 \
+    && pip install sqlalchemy==1.3.15 \
     && pip install https://github.com/apache/incubator-airflow/archive/${AIRFLOW_VERSION}.tar.gz \
     && pip install snakebite \
-    && pip install psycopg2 \
+    && pip install psycopg2-binary \
+    && pip install 'werkzeug<1.0.0' \
     && pip install celery[redis]==3.1.17 \
     && pip install https://codeload.github.com/GlobalFishingWatch/airflow-gfw/tar.gz/${AIRFLOW_GFW_VERSION} \
     && apt-get remove --purge -yqq $buildDeps \

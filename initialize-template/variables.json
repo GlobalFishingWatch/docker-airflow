@@ -7,5 +7,9 @@
     "TEMP_BUCKET": "GCS_BUCKET",
     "DOCKER_RUN": "docker run -v gcp:/root/.config",
     "DATAFLOW_WRAPPER_STUB": "/usr/local/airflow/utils/log_wrapper.py",
-    "DATAFLOW_WRAPPER_LOG_PATH": "/usr/local/airflow/log_wrapper"
+    "DATAFLOW_WRAPPER_LOG_PATH": "/usr/local/airflow/log_wrapper",
+    "FLEXIBLE_OPERATOR":"bash",
+    "INFERENCE_BUFFER_DAYS":"1",
+    "EVENTS_DATASET": "BIGQUERY_DATASET",
+    "SLACK_WEBHOOK_TOKEN": "/T0FS8JJNQ/BJY0J44QY/PdWl0Bm4VzN2jOn09ajttjhZ"
 }

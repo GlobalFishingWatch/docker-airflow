@@ -33,12 +33,12 @@ services:
             # Mount the test pipeline into the dags folder.  initialize.sh will run the
             # post_install script on startup
             - ${TEST_PIPELINE_DAGS}:/usr/local/airflow/dags/${TEST_PIPELINE}
-            # - /home/matu/repo/gfw/pipeline/pipe-events/airflow:/usr/local/airflow/dags/pipe-events
-            # - /home/matu/repo/gfw/pipeline/pipe-measures/airflow:/usr/local/airflow/dags/pipe-measures
-            # - /home/matu/repo/gfw/pipeline/pipe-features/airflow:/usr/local/airflow/dags/pipe-features
-            # - /home/matu/repo/gfw/pipeline/anchorages_pipeline/airflow:/usr/local/airflow/dags/anchorages_pipeline
-            # - /home/matu/repo/gfw/pipeline/encounters_pipeline/airflow:/usr/local/airflow/dags/encounters_pipeline
-            # - /home/matu/repo/gfw/pipeline/pipe-segment/airflow:/usr/local/airflow/dags/pipe-segment
+            - /home/matu/repo/gfw/pipeline/pipe-events/airflow:/usr/local/airflow/dags/pipe-events
+            - /home/matu/repo/gfw/pipeline/pipe-measures/airflow:/usr/local/airflow/dags/pipe-measures
+            - /home/matu/repo/gfw/pipeline/pipe-features/airflow:/usr/local/airflow/dags/pipe-features
+            - /home/matu/repo/gfw/pipeline/anchorages_pipeline/airflow:/usr/local/airflow/dags/anchorages_pipeline
+            - /home/matu/repo/gfw/pipeline/encounters_pipeline/airflow:/usr/local/airflow/dags/encounters_pipeline
+            - /home/matu/repo/gfw/pipeline/pipe-segment/airflow:/usr/local/airflow/dags/pipe-segment
         ports:
             - "8080:8080"
         command: webserver
